@@ -59,14 +59,17 @@ int getSecret(int *range)
 	return secret;
 }
 
+// Currently bugged
 int* getRange()
 {
 	string prompt;
 	string storage;
 	
+	// What am I doing on this part?
 	cout << "Enter the file name containing the range for the secret number: ";
 	storage = &readString(prompt);
 	
+	// Honestly
 	ReadFile* rf = createReadFile(storage);
 	
 	int *range = new int[2];
@@ -74,6 +77,7 @@ int* getRange()
 	for(int i = 0; i < 2; i++) {
 		string *temp;
 		
+		// Slow painful death awaits
 		temp = rf->readLine(rf);
 		range[i] = a_to_i(temp);
 	}

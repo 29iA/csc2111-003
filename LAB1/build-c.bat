@@ -1,6 +1,8 @@
 @echo off
 cls
 
+build c
+
 ::Set drive letter if no args given
 if [%1] == [] goto noArgs
 goto yesArgs
@@ -17,3 +19,5 @@ set PATH=%DRIVE_LETTER%\TDM-GCC-64\bin;%DRIVE_LETTER%\TDM-GCC-64\wxWidgets-3.1.0
 set PROJECT_PATH=.
 
 mingw32-make DRIVE_LETTER="%DRIVE_LETTER%" CURRENT_DIR="%PROJECT_PATH%"
+
+PAUSE

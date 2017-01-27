@@ -28,7 +28,6 @@ int main()
 		destroyString(ready_str);
 	   
 		//DO THIS
-		  
 		int* range = new int[2];
 		int secret;
 		int guessTotal;
@@ -37,7 +36,7 @@ int main()
 		secret = getSecret(range);
 		guessTotal = play(range, secret);
 		  
-		delete []range;
+		delete [] range;
 
 		cout << "You got it in " << guessTotal << " guesses!" << endl;
 		cin.ignore();
@@ -49,52 +48,49 @@ int main()
 	return 0;
 }
 
-// Make random number and return it
 int getSecret(int *range)
 {
 	int secret;
 	
+	// Get a random number and put it into secret
 	secret = getRandomInt(range[0], range[1]);
 	
 	return secret;
 }
 
-// Currently bugged
 int* getRange()
 {
-	string prompt;
-	string storage;
-	
-	// What am I doing on this part?
-	cout << "Enter the file name containing the range for the secret number: ";
-	storage = &readString(prompt);
-	
-	// Honestly
-	ReadFile* rf = createReadFile(storage);
-	
 	int *range = new int[2];
 	
-	for(int i = 0; i < 2; i++) {
-		string *temp;
+	// Declare storage as variable for access to struct String
+	// Which is assigned the const char return from readString() function
+	String* storage = readString("Enter the file name containing the range for the secret number: ");
+	
+	// Declare input_file as variable for access to struct ReadFile
+	// Which is assigned... something uh
+	// I'm stumped on this part but the code worked, FeelsGoodMan
+	ReadFile* input_file = createReadFile(getText(storage));
+	
+	for(int i = 0; i < 2; i++) 
+	{
+		String* out = readLine(input_file);
 		
-		// Slow painful death awaits
-		temp = rf->readLine(rf);
-		range[i] = a_to_i(temp);
+		range[i] = a_to_i(out);
 	}
+	
 	return range;
+	delete [] range;	// Right spot?
 }
 
 int getGuess (int* range)
 {
 	int guess;
 	
-	cout << "Enter your guess: ";
-	cin >> guess;
+	// Prompt user and take in integer, which is assigned to guess int
+	guess = readInt("Enter your guess: ");
 	
-	while (guess < range[0] || guess > range[1]) {
-		cout << "Wrong guess.\n" << "Enter your guess: ";
-		cin >> guess;
-	}
+	while (guess < range[0] || guess > range[1])
+		guess = readInt("Wrong guess.\n Enter your guess: ");
 	
 	return guess;
 }
